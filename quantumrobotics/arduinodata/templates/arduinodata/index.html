@@ -1,0 +1,20 @@
+{% extends "arduinodata/layout.html" %}
+
+{% load static %}
+
+{% block body %}
+{% for key,board in value_boards %}
+    <button data-board={{key}}>{{board}}</button>
+{% endfor %}
+    <h1>ARDUINO</h1>
+    <div id="all">
+        <ul>
+        {% for arduino in arduino_list %}
+            <li>{{arduino}}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div id="model"></div>
+    
+    
+{% endblock %}
