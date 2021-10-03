@@ -7,7 +7,7 @@ class Arduino(models.Model):
         ('EL',"Entry Level"),
         ('EF',"Enhanced Features"),
         ('IoT', "Internet of Things"),
-        ('ED','Education')
+        ('RET','Retired')
     )
     board = models.CharField(verbose_name="Board",max_length=3, choices=BOARD)
     board_name = models.CharField(max_length=255)
