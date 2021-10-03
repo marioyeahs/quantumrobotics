@@ -6,4 +6,5 @@ from .views import IndexListView
 app_name='quantumrobotics'
 urlpatterns = [
     path('',IndexListView.as_view(), name='index'),
+    path('model/<str:board>/', views.model, name='model')
 ]
