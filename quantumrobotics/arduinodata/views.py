@@ -1,6 +1,7 @@
 from django.db.models.query_utils import Q
 from django.shortcuts import render
 from django.views.generic import ListView
+from django.http import Http404
 from .models import Arduino
 # Create your views here.
 
@@ -24,3 +25,15 @@ class IndexListView(ListView):
         context['value_boards']=zip(boards_key,boards)
         
         return context
+
+def model(request,board):
+    board_keys=[]
+    for i in Arduino.BOARD:
+        board_keys.append(i[0])
+    if board in board_keys:
+        boards = Arduino.objects.filter(board=board)
+        return render(request,"arduinodata/model.html",{
+                "boards":boards,
+                })
+    else:
+        raise Http404("No contamos con tal board")
