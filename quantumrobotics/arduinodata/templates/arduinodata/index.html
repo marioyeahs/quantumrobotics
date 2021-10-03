@@ -2,19 +2,21 @@
 
 {% load static %}
 
+{% block head %}
+    <script type="text/javascript" src="{% static 'arduinodata/js/index.js' %}"></script>
+{% endblock %}
+
 {% block body %}
-{% for key,board in value_boards %}
-    <button data-board={{key}}>{{board}}</button>
-{% endfor %}
+    {% for key,board in value_boards %}
+        <button data-board={{key}}>{{board}}</button>
+    {% endfor %}
     <h1>ARDUINO</h1>
-    <div id="all">
+    <div id="all_products">
         <ul>
         {% for arduino in arduino_list %}
             <li>{{arduino}}</li>
         {% endfor %}
         </ul>
     </div>
-    <div id="model"></div>
-    
-    
+    <div id="models"></div>
 {% endblock %}
