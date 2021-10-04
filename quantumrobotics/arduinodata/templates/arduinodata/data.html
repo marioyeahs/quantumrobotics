@@ -1,0 +1,18 @@
+{% extends "arduinodata/layout.html" %}
+
+{% load static %}
+
+{% block head %}
+    <!-- <script type="text/javascript" src="{% static 'arduinodata/js/index.js' %}"></script> -->
+{% endblock %}
+
+{% block body %}
+<h1>Registros</h1>
+<ol>
+    {% for i in data %}
+        <li>{{i}}</li>
+    {% endfor %}
+</ol>
+
+
+{% endblock %}
