@@ -1,8 +1,9 @@
 from django.db.models.query_utils import Q
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.views.generic import ListView
 from django.http import Http404
-from .models import Arduino
+from .models import Arduino, Data
+from django.views.generic.detail import DetailView
 # Create your views here.
 
 class IndexListView(ListView):
@@ -28,6 +29,7 @@ class IndexListView(ListView):
 
 def model(request,board):
     board_keys=[]
+    print(board)
     for i in Arduino.BOARD:
         board_keys.append(i[0])
     if board in board_keys:
@@ -37,3 +39,7 @@ def model(request,board):
                 })
     else:
         raise Http404("No contamos con tal board")
+
+def data(request,model_board):
+    data=Data.objects.filter(arduino=model_board)
+    return render(request, "arduinodata/data.html",{'data':data})
