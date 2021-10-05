@@ -63,6 +63,3 @@ def data(request,model_board):
     return render(request, "arduinodata/data.html",{
         'data':data,
         })
-
-def boot(request):
-    return render(request, "arduinodata/index1.html")
