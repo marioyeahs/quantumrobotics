@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+from django.forms import ModelForm
 
 # Create your models here.
 
@@ -25,5 +25,10 @@ class Data(models.Model):
     date = models.DateField(verbose_name="Date",default='')
     def __str__(self):
         return f"Sensor {self.sensor} - {self.arduino.board_name} - {self.date}"
+
+class ArduinoForm(ModelForm):
+    class Meta:
+        model = Data
+        fields = ['arduino', 'sensor', 'content']
 
 
