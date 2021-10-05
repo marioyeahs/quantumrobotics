@@ -11,8 +11,9 @@
 <ol>
     {% for i in data %}
         <li>{{i}}</li>
+    {% empty %}
+        <li>No has registrado datos.</li>
     {% endfor %}
 </ol>
-
 
 {% endblock %}
