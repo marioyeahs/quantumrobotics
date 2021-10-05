@@ -1,9 +1,14 @@
 from django.db.models.query_utils import Q
+from django.http.response import HttpResponse
 from django.shortcuts import render,get_object_or_404
 from django.views.generic import ListView
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from .models import Arduino, Data
 from django.views.generic.detail import DetailView
+from django.urls import reverse
+from .models import Data
+from datetime import datetime
+from .models import ArduinoForm
 # Create your views here.
 
 class IndexListView(ListView):
@@ -24,6 +29,18 @@ class IndexListView(ListView):
         
         context['key_boards']=zip(boards_key,hard_by_model)
         context['value_boards']=zip(boards_key,boards)
+
+        # Create the form class.
+        form=context['form']=ArduinoForm()
+        if form.is_valid():
+            arduino = form.cleaned_data['arduino']
+            print(arduino)
+            sensor = form.cleaned_data['sensor']
+            content = form.cleaned_data['content']
+            date=datetime.today()
+            data=Data(arduino=arduino,sensor=sensor,content=content,date=date)
+            data.save()
+            return HttpResponseRedirect(reverse('arduinodata:index'))
         
         return context
 
@@ -42,4 +59,10 @@ def model(request,board):
 
 def data(request,model_board):
     data=Data.objects.filter(arduino=model_board)
-    return render(request, "arduinodata/data.html",{'data':data})
+    
+    return render(request, "arduinodata/data.html",{
+        'data':data,
+        })
+
+def boot(request):
+    return render(request, "arduinodata/index1.html")
